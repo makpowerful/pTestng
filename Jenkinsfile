@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // This must match the name of the Maven installation configured in your Jenkins Global Tool Configuration
-        maven 'Maven_3.9.4' 
+        maven 'Maven' 
     }
 
     stages {
