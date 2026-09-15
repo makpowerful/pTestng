@@ -12,6 +12,11 @@ pipeline {
             choices: ['Chrome', 'Firefox', 'Edge'], 
             description: 'Select the browser for test execution'
         )
+        booleanParam(
+            name: 'HEADLESS', 
+            defaultValue: true, 
+            description: 'Check this box to run the browser in Headless Mode'
+        )
     }
 
     // 2. Polls Git repository every 5 minutes for changes. 
@@ -34,14 +39,14 @@ pipeline {
         }
 
         // This stage runs ONLY during normal manual executions
-        stage('Run Automation Tests') {
+ 		stage('Run Automation Tests') {
             when {
                 expression { !CAUSE.contains('SCMTrigger') }
             }
             steps {
-                echo "Launching regular TestNG suite on browser: ${params.BROWSER}..."
-                // Passes the selected browser parameter to your Maven command
-                bat "mvn test -DsuiteXmlFile=testng.xml -Dbrowser=${params.BROWSER}" 
+                echo "Launching regular TestNG suite on browser: ${params.BROWSER} (Headless: ${params.HEADLESS})..."
+                // Pass the headless parameter choice down to Maven
+                bat "mvn test -DsuiteXmlFile=testng.xml -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS}" 
             }
         }
 
@@ -51,9 +56,9 @@ pipeline {
                 expression { CAUSE.contains('SCMTrigger') }
             }
             steps {
-                echo "Git change detected! Launching Smoke Test suite on browser: ${params.BROWSER}..."
-                // Swaps the XML file to your smoke test configuration
-                bat "mvn test -DsuiteXmlFile=smoke-testng.xml -Dbrowser=${params.BROWSER}" 
+				echo "Git change detected! Launching Smoke Test suite on browser: ${params.BROWSER} (Headless: ${params.HEADLESS})..."
+                // SCM automatic triggers will respect whatever the default parameter is set to (true)
+                bat "mvn test -DsuiteXmlFile=smoke-testng.xml -Dbrowser=${params.BROWSER} -Dheadless=${params.HEADLESS}" 
             }
         }
     }

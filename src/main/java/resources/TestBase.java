@@ -20,14 +20,17 @@ public class TestBase {
         }
 
         WebDriver driver = null;
-        // Detects if the current execution is running inside a Jenkins environment
-        boolean isJenkins = System.getenv("JENKINS_URL") != null;
+        // Reads the headless property from the Maven flag (-Dheadless)
+        String headlessProp = System.getProperty("headless");
+        
+        // Convert to boolean. Default to false if running locally in Eclipse (so it is always headed locally)
+        boolean isHeadless = (headlessProp != null) && headlessProp.equalsIgnoreCase("true");
 
         if (browserName.equalsIgnoreCase("Chrome")) {
             ChromeOptions op = new ChromeOptions();
-            if (isJenkins) {
-                op.addArguments("--headless=new"); // Modern headless mode for Chrome
-                op.addArguments("--window-size=1920,1080"); // Ensures stable element rendering headless
+            if (isHeadless) {
+                op.addArguments("--headless=new");
+                op.addArguments("--window-size=1920,1080");
             } else {
                 op.addArguments("--start-maximized");
             }
@@ -35,7 +38,7 @@ public class TestBase {
             
         } else if (browserName.equalsIgnoreCase("Firefox")) {
             FirefoxOptions op = new FirefoxOptions();
-            if (isJenkins) {
+            if (isHeadless) {
                 op.addArguments("--headless");
             } else {
                 op.addArguments("--start-maximized");
@@ -44,7 +47,7 @@ public class TestBase {
             
         } else if (browserName.equalsIgnoreCase("Edge")) {
             EdgeOptions op = new EdgeOptions();
-            if (isJenkins) {
+            if (isHeadless) {
                 op.addArguments("--headless");
                 op.addArguments("--window-size=1920,1080");
             } else {
@@ -53,6 +56,9 @@ public class TestBase {
             driver = new EdgeDriver(op);
         }
 
+
+     // Add this line right before "return driver;" at the bottom of WebDriverManager()
+        driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
 
 		return driver;
 	}
