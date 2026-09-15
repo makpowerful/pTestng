@@ -2,8 +2,27 @@ pipeline {
     agent any
 
     tools {
-        // This must match the name of the Maven installation configured in your Jenkins Global Tool Configuration
         maven 'Maven' 
+    }
+
+    // 1. Defines the dropdown parameter for the browser selection
+    parameters {
+        choice(
+            name: 'BROWSER', 
+            choices: ['Chrome', 'Firefox', 'Edge'], 
+            description: 'Select the browser for test execution'
+        )
+    }
+
+    // 2. Polls Git repository every 5 minutes for changes. 
+    // If changes are found, it triggers the build automatically.
+    triggers {
+        pollSCM('*/5 * * * *')
+    }
+
+    environment {
+        // Captures how the build was started (e.g., 'SCMTrigger' if triggered by a Git change)
+        CAUSE = "${currentBuild.getBuildCauses()[0]._class}"
     }
 
     stages {
@@ -14,11 +33,27 @@ pipeline {
             }
         }
 
+        // This stage runs ONLY during normal manual executions
         stage('Run Automation Tests') {
+            when {
+                expression { !CAUSE.contains('SCMTrigger') }
+            }
             steps {
-                echo 'Launching TestNG automation suite via Maven...'
-                // 'bat' is used for Windows command prompt lines
-                bat 'mvn test -DsuiteXmlFile=testng.xml' 
+                echo "Launching regular TestNG suite on browser: ${params.BROWSER}..."
+                // Passes the selected browser parameter to your Maven command
+                bat "mvn test -DsuiteXmlFile=testng.xml -Dbrowser=${params.BROWSER}" 
+            }
+        }
+
+        // 3. This stage runs ONLY if Jenkins detected a Git change (SCM Trigger)
+        stage('Run Smoke Tests') {
+            when {
+                expression { CAUSE.contains('SCMTrigger') }
+            }
+            steps {
+                echo "Git change detected! Launching Smoke Test suite on browser: ${params.BROWSER}..."
+                // Swaps the XML file to your smoke test configuration
+                bat "mvn test -DsuiteXmlFile=smoke-testng.xml -Dbrowser=${params.BROWSER}" 
             }
         }
     }
@@ -26,7 +61,6 @@ pipeline {
     post {
         always {
             echo 'Archiving execution test reports...'
-            // Safeguards your Extent Report inside the Jenkins build artifacts
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
         }
         
