@@ -20,20 +20,39 @@ public class TestBase {
         }
 
         WebDriver driver = null;
+        // Detects if the current execution is running inside a Jenkins environment
+        boolean isJenkins = System.getenv("JENKINS_URL") != null;
 
         if (browserName.equalsIgnoreCase("Chrome")) {
             ChromeOptions op = new ChromeOptions();
-            op.addArguments("--start-maximized");
+            if (isJenkins) {
+                op.addArguments("--headless=new"); // Modern headless mode for Chrome
+                op.addArguments("--window-size=1920,1080"); // Ensures stable element rendering headless
+            } else {
+                op.addArguments("--start-maximized");
+            }
             driver = new ChromeDriver(op);
+            
         } else if (browserName.equalsIgnoreCase("Firefox")) {
             FirefoxOptions op = new FirefoxOptions();
-            op.addArguments("--start-maximized");
+            if (isJenkins) {
+                op.addArguments("--headless");
+            } else {
+                op.addArguments("--start-maximized");
+            }
             driver = new FirefoxDriver(op);
+            
         } else if (browserName.equalsIgnoreCase("Edge")) {
             EdgeOptions op = new EdgeOptions();
-            op.addArguments("--start-maximized");
+            if (isJenkins) {
+                op.addArguments("--headless");
+                op.addArguments("--window-size=1920,1080");
+            } else {
+                op.addArguments("--start-maximized");
+            }
             driver = new EdgeDriver(op);
         }
+
 
 		return driver;
 	}
