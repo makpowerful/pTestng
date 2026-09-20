@@ -18,8 +18,6 @@ public class eventPO {
 	public static By tag = By.tagName("html");
 	private By newEventHeaderLocator = By.xpath("//h2[contains(text(),'New Event')]");
 	private By titleEventTextBoxLocator = By.id("event-title-input");
-	private String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));;
-	private String title = "Test Event " + timestamp;
 	private By descriptionTextAreaLocator = By.xpath("//textarea[@placeholder='Describe the event…']");
 	private By categoryDropdownLocator = By.cssSelector("#category");
 	private By cityEventTextBoxLocator = By.id("city");
@@ -36,6 +34,8 @@ public class eventPO {
 	}
 
 	public void creatingAEvent() throws InterruptedException {
+		String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));;
+		String title = "Test Event " + timestamp;
 		wait.until(ExpectedConditions.visibilityOfElementLocated(newEventHeaderLocator));
 
 		WebElement titleEventTextBox = wait
