@@ -2,6 +2,7 @@ package pageObjects;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -17,8 +18,8 @@ public class eventPO {
 	public static By tag = By.tagName("html");
 	private By newEventHeaderLocator = By.xpath("//h2[contains(text(),'New Event')]");
 	private By titleEventTextBoxLocator = By.id("event-title-input");
-	private LocalDateTime currentDateTime = LocalDateTime.now();
-	private String title = "Test Event " + currentDateTime;
+	private String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));;
+	private String title = "Test Event " + timestamp;
 	private By descriptionTextAreaLocator = By.xpath("//textarea[@placeholder='Describe the event…']");
 	private By categoryDropdownLocator = By.cssSelector("#category");
 	private By cityEventTextBoxLocator = By.id("city");
@@ -43,7 +44,7 @@ public class eventPO {
 
 		WebElement descriptionTextArea = wait
 				.until(ExpectedConditions.visibilityOfElementLocated(descriptionTextAreaLocator));
-		descriptionTextArea.sendKeys("Test Description " + currentDateTime);
+		descriptionTextArea.sendKeys("Test Description " + timestamp);
 
 		WebElement categoryDropdown = wait
 				.until(ExpectedConditions.visibilityOfElementLocated(categoryDropdownLocator));
