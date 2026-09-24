@@ -1,0 +1,16 @@
+# Maven build artifacts
+target/
+*.stf
+*.binary
+
+# Eclipse / IDE metadata
+.classpath
+.project
+.settings/
+.mvn/
+
+# Test Reports & Result logs
+test-output/
+allure-results/
+allure-report/
+ExtentReport.html

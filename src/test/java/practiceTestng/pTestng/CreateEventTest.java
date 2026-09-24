@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import pageObjects.eventPO;
@@ -43,6 +44,18 @@ public class CreateEventTest extends TestBase {
 		loginPage.logIntoApp();
 		homePage.selectManageEvent();
 		eventPage.creatingAEvent();
+		
+		
+	}
+	
+	@Test(dataProvider = "data")
+	public void testDP(String val){
+		System.out.println(val);
+	}
+	
+	@DataProvider
+	public Object[][] data(){
+		return new Object[][] {{"Test1"},{"Test2"}};
 		
 	}
 	

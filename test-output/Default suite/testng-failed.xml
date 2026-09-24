@@ -3,12 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="practiceTestng.pTestng.testCreateEvent">
+      <class name="practiceTestng.pTestng.practiceRetry">
         <methods>
-          <include name="initialize"/>
-          <include name="testCreateEventProcess"/>
+          <include name="testRetry"/>
         </methods>
-      </class> <!-- practiceTestng.pTestng.testCreateEvent -->
+      </class> <!-- practiceTestng.pTestng.practiceRetry -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
