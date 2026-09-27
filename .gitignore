@@ -8,6 +8,7 @@ target/
 .project
 .settings/
 .mvn/
+.env
 
 # Test Reports & Result logs
 test-output/

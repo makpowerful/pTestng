@@ -11,7 +11,7 @@ import org.testng.Assert;
 
 import resources.TestBase;
 
-public class loginPO extends TestBase{
+public class LoginPO extends TestBase{
 	public WebDriver driver;
 	public WebDriverWait wait;
 	private By usernameTextBoxLocator = By.id("email");
@@ -19,7 +19,7 @@ public class loginPO extends TestBase{
 	private By signInButtonLocator = By.xpath("//button[@type='submit']");
 	
 	//Declaring Constructor
-	public loginPO(WebDriver driver) {
+	public LoginPO(WebDriver driver) {
 		this.driver=driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
@@ -27,10 +27,10 @@ public class loginPO extends TestBase{
 	public void logIntoApp() {
 		driver.get("https://eventhub.rahulshettyacademy.com/login");
 		WebElement usernameTextBox = wait.until(ExpectedConditions.visibilityOfElementLocated(usernameTextBoxLocator));
-		usernameTextBox.sendKeys("mak_powerful@yahoo.co.in");
+		usernameTextBox.sendKeys(TestBase.dotenv.get("USERNAME"));
 		
 		WebElement passwordTextBox = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordTextBoxLocator));
-		passwordTextBox.sendKeys("Arthas1@3");
+		passwordTextBox.sendKeys(TestBase.dotenv.get("PASSWORD"));
 		
 		WebElement signInButton = wait.until(ExpectedConditions.visibilityOfElementLocated(signInButtonLocator));
 		signInButton.click();

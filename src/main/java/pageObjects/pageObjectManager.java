@@ -2,31 +2,31 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 
-public class pageObjectManager {
+public class PageObjectManager {
 	
 	public WebDriver driver;
-	public loginPO loginPO;
-	public homePO homePO;
-	public eventPO eventPO;
+	public LoginPO loginPO;
+	public HomePO homePO;
+	public EventPO eventPO;
 	
-	public pageObjectManager(WebDriver driver)
+	public PageObjectManager(WebDriver driver)
 	{
 		this.driver = driver;
 	}
 	
-	public loginPO getLoginPage()
+	public LoginPO getLoginPage()
 	{
-		loginPO = new loginPO(driver);
+		loginPO = new LoginPO(driver);
 		return loginPO;
 	}
-	public homePO getHomePage()
+	public HomePO getHomePage()
 	{
-		homePO = new homePO(driver);
+		homePO = new HomePO(driver);
 		return homePO;
 	}
-	public eventPO getEventPage()
+	public EventPO getEventPage()
 	{
-		eventPO = new eventPO(driver);
+		eventPO = new EventPO(driver);
 		return eventPO;
 	}
 }

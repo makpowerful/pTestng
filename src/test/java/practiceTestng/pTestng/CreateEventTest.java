@@ -8,17 +8,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import pageObjects.eventPO;
-import pageObjects.homePO;
-import pageObjects.loginPO;
+import pageObjects.EventPO;
+import pageObjects.HomePO;
+import pageObjects.LoginPO;
 import resources.TestBase;
 import utils.testContextSetup;
 
 public class CreateEventTest extends TestBase {
 	public WebDriver driver;
-	loginPO loginPage;
-	homePO homePage;
-	eventPO eventPage;
+	LoginPO loginPage;
+	HomePO homePage;
+	EventPO eventPage;
 	testContextSetup testContextSetup;
 
 	@BeforeMethod(alwaysRun = true)

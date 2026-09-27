@@ -3,13 +3,13 @@ package utils;
 import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
-import pageObjects.pageObjectManager;
+import pageObjects.PageObjectManager;
 import resources.GenericUtils;
 import resources.TestBase;
 
 public class testContextSetup {
 	public WebDriver driver;
-	public pageObjectManager pageObjectManager;
+	public PageObjectManager pageObjectManager;
 	public TestBase testBase;
 	public GenericUtils genericUtils;
 	
@@ -22,7 +22,7 @@ public class testContextSetup {
         org.testng.Reporter.getCurrentTestResult().getTestContext().setAttribute("WebDriver", driver);
 
         // 2. Pass the SAME driver instance to the managers
-        pageObjectManager = new pageObjectManager(driver);
+        pageObjectManager = new PageObjectManager(driver);
         genericUtils = new GenericUtils(driver);
 		
 		

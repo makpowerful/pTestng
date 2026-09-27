@@ -10,10 +10,23 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-public class TestBase {
+import io.github.cdimascio.dotenv.Dotenv;
 
+public class TestBase {
+	public static Dotenv dotenv;
+	
+	public void setupEnvironment() {
+        dotenv = Dotenv.configure()
+                       .ignoreIfMissing() // Prevents crashes if file is missing in CI/CD pipelines
+                       .load();
+    }
+	
 	public WebDriver WebDriverManager() throws IOException, InterruptedException {
         // Reads browser value from Jenkins/Maven command flag (-Dbrowser)
+		
+		
+		
+		
         String browserName = System.getProperty("browser");
         if (browserName == null) {
             browserName = "Chrome"; // Fallback default for running locally in Eclipse

@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class eventPO {
+public class EventPO {
 	public WebDriver driver;
 	public WebDriverWait wait;
 	public static By tag = By.tagName("html");
@@ -28,7 +28,7 @@ public class eventPO {
 	private By addEventButtonLocator = By.xpath("//button[@type='submit']");
 
 	// Declaring Constructor
-	public eventPO(WebDriver driver) {
+	public EventPO(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}

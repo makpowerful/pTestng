@@ -26,11 +26,11 @@ public class testRough {
 		
 		By usernameTextBoxLocator = By.id("email");
 		WebElement usernameTextBox = wait.until(ExpectedConditions.visibilityOfElementLocated(usernameTextBoxLocator));
-		usernameTextBox.sendKeys("mak_powerful@yahoo.co.in");
+		//usernameTextBox.sendKeys("");
 		
 		By passwordTextBoxLocator = By.id("password");
 		WebElement passwordTextBox = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordTextBoxLocator));
-		passwordTextBox.sendKeys("Arthas1@3");
+		//passwordTextBox.sendKeys("");
 		
 		By signInButtonLocator = By.xpath("//button[@type='submit']");
 		WebElement signInButton = wait.until(ExpectedConditions.visibilityOfElementLocated(signInButtonLocator));
