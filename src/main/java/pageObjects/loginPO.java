@@ -11,9 +11,10 @@ import org.testng.Assert;
 
 import resources.TestBase;
 
-public class LoginPO extends TestBase{
-	public WebDriver driver;
-	public WebDriverWait wait;
+public class LoginPO{
+    // 1. Encapsulated variables specific to this Page Object
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 	private By usernameTextBoxLocator = By.id("email");
 	private By passwordTextBoxLocator = By.id("password");
 	private By signInButtonLocator = By.xpath("//button[@type='submit']");

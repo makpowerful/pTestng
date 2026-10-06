@@ -1,5 +1,6 @@
 # Maven build artifacts
 target/
+/target/
 *.stf
 *.binary
 
@@ -12,6 +13,7 @@ target/
 
 # Test Reports & Result logs
 test-output/
+/test-output/
 allure-results/
 allure-report/
 ExtentReport.html

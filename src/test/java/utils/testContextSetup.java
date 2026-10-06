@@ -1,32 +1,32 @@
 package utils;
 
 import java.io.IOException;
-
 import org.openqa.selenium.WebDriver;
 import pageObjects.PageObjectManager;
 import resources.GenericUtils;
 import resources.TestBase;
 
 public class testContextSetup {
-	public WebDriver driver;
-	public PageObjectManager pageObjectManager;
-	public TestBase testBase;
-	public GenericUtils genericUtils;
+    
+    // Made variables final to ensure they cannot be mutated mid-thread execution
+    public final WebDriver driver;
+    public final PageObjectManager pageObjectManager;
+    public final GenericUtils genericUtils;
 	
-	public testContextSetup() throws IOException, InterruptedException
-	{
-		testBase = new TestBase();
-        // 1. Initialize the driver variable once
-        driver = testBase.WebDriverManager(); 
-     // Save the driver instance into TestNG's internal context memory
-        org.testng.Reporter.getCurrentTestResult().getTestContext().setAttribute("WebDriver", driver);
+    public testContextSetup() throws IOException, InterruptedException {
+        // 1. Setup global configurations safely
+        TestBase.setupEnvironment();
+        
+        // 2. Thread-Safe Singleton Access: Fetch or create the dedicated driver for THIS thread
+        this.driver = TestBase.initializeDriver(); 
+        
+        // 3. Save the unique driver instance into TestNG's context engine (for listeners/screenshots)
+        if (org.testng.Reporter.getCurrentTestResult() != null) {
+            org.testng.Reporter.getCurrentTestResult().getTestContext().setAttribute("WebDriver", this.driver);
+        }
 
-        // 2. Pass the SAME driver instance to the managers
-        pageObjectManager = new PageObjectManager(driver);
-        genericUtils = new GenericUtils(driver);
-		
-		
-		
-
-	}
+        // 4. Instantiate contextual managers with the thread's isolated driver reference
+        this.pageObjectManager = new PageObjectManager(this.driver);
+        this.genericUtils = new GenericUtils(this.driver);
+    }
 }

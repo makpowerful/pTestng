@@ -1,7 +1,0 @@
-pageObjects\eventPO.class
-pageObjects\homePO.class
-pageObjects\loginPO.class
-practiceTestng\pTestng\App.class
-resources\TestBase.class
-pageObjects\pageObjectManager.class
-resources\GenericUtils.class

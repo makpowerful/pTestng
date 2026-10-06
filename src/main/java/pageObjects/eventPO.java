@@ -13,8 +13,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EventPO {
-	public WebDriver driver;
-	public WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 	public static By tag = By.tagName("html");
 	private By newEventHeaderLocator = By.xpath("//h2[contains(text(),'New Event')]");
 	private By titleEventTextBoxLocator = By.id("event-title-input");

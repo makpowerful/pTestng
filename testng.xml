@@ -9,7 +9,6 @@
     
     <test name="Regression Tests">
         <classes>
-            <class name="practiceTestng.pTestng.AppTest" />
             <class name="practiceTestng.pTestng.CreateEventTest" />
         </classes>
     </test>

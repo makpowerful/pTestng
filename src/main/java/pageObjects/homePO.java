@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePO {
-	public WebDriver driver;
-	public WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 	private By homepageHeaderLinksLocator = By.xpath("//div[contains(@class,'flex items-center')]//*[text()='Admin']");
 	private By adminManageLinkLocator = By.xpath("//div[contains(@class,'absolute')]//a[text()='Manage Events']");
 

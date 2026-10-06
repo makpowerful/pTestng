@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class PageObjectManager {
 	
-	public WebDriver driver;
+	private final WebDriver driver;
 	public LoginPO loginPO;
 	public HomePO homePO;
 	public EventPO eventPO;
